@@ -7,7 +7,7 @@ Part A - Architecture Diagram
 I chose to stay on Microsoft Azure so that identity, logging, policy, and detection are all in one stack and easier to explain to an auditor.
 The diagram below shows the full security flow from login to incident response.
 
-![alt text](image.png)
+![alt text](image-1.png)
 
 How to read the flow
 
