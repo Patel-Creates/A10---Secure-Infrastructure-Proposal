@@ -1,6 +1,6 @@
 A10: Secure Infrastructure Proposal
 
-Scenario: A mid-sized SaaS company expanding into the education market on Microsoft Azure.
+Scenario: A mid-sized SaaS company expanding into the **healthcare market** on Microsoft Azure.
 The company currently has a basic cloud setup with minimal security. It needs to support enterprise SSO, least-privilege access, audit log retention, compliance readiness, and a weekly deployment cadence.
 
 Part A - Architecture Diagram
@@ -14,7 +14,7 @@ How to read the flow
 
 | Step | Meaning |
 | --- | --- |
-| Users log in | Schools and organizations use their existing accounts via SSO. All logins go through Entra ID. |
+| Users log in | Clinicians and hospital staff use their existing accounts via SSO. All logins go through Entra ID. |
 | Identity check | Entra ID confirms who the user is and enforces MFA. Conditional Access policies block risky sign-ins. |
 | Access control | RBAC roles decide what each user can see or do. Admins use PIM for temporary elevated access only. |
 | App + resources | Services authenticate using managed identities so there are no hardcoded passwords in code. |
@@ -48,7 +48,7 @@ How to read the flow
 
 1. **One stack on Azure** - keeps logging, identity, policy, and detection together, which makes pulling audit evidence much easier. The tradeoff is vendor lock-in and rising log storage costs as the company grows.
 
-2. **Federation for education customers** - schools already have their own identity systems. Integrating with them instead of forcing new accounts reduces friction and builds customer trust.
+2. **Federation for healthcare customers** - hospitals and clinics already have their own identity systems. Integrating with them instead of forcing new accounts reduces friction and builds customer trust.
 
 3. **Preventive and detective controls** - Azure Policy and Terraform catch mistakes before they hit production. Sentinel catches what still slips through. Weekly releases work because automated checks replace manual approval gates.
 
@@ -58,12 +58,12 @@ How to read the flow
 
 The main tradeoff in this design is choosing auditability and security over low cost and maximum speed. Centralizing everything on Azure, enforcing strong identity controls, and retaining logs all add cost but they make compliance reviews much more manageable.
 
-To keep the weekly release cadence realistic, I leaned on automation Terraform pipelines, Azure Policy, and Sentinel playbooks instead of manual review gates on every deploy. Some risk is accepted and handled through detection and response rather than blocking every single change.
+To keep the weekly release cadence realistic, I leaned on automation - Terraform pipelines, Azure Policy, and Sentinel playbooks - instead of manual review gates on every deploy. Some risk is accepted and handled through detection and response rather than blocking every single change.
 
 **With more time and budget I would add:**
 
 - Customer-managed encryption keys for the most sensitive tenants
-- A formal SOC 2 or FERPA compliance mapping on top of this design
+- A formal SOC 2 or HIPAA compliance mapping on top of this design
 - Regular tabletop incident exercises to test the IR runbooks
 - External penetration testing on a scheduled cadence
-- Deeper data governance controls specific to student data
+- Deeper data governance controls specific to patient data
