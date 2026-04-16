@@ -22,3 +22,13 @@ How to read the flow
 | Policy + IaC | Azure Policy and Terraform templates prevent misconfigs before and after deployment. |
 | Alerts fire | Sentinel monitors the logs and fires alerts when something looks suspicious. |
 | Contain + fix | Sessions are revoked, IPs are blocked, runbooks are updated to prevent it from happening again. |
+
+## Part B — Compliance Mapping Table
+
+| Requirement | What we do | Tool | Proof for auditor |
+| --- | --- | --- | --- |
+| Only authorized users can log in | SSO + MFA enforced for every login | Azure Entra ID | Sign-in logs, MFA registration report |
+| Admins are tracked and accountable | Named admin accounts only, temporary access that expires | Entra PIM | Elevation logs with user + timestamp |
+| All activity is recorded | Every log from every service goes to one central place | Log Analytics | Retention settings, sample log export |
+| Suspicious activity is caught | Alerts trigger when something looks wrong (unusual location, failed logins, etc.) | Microsoft Sentinel | Alert rule list, incident history |
+| Bad configs are blocked before deploy | Policy rules and IaC templates enforced in the pipeline | Azure Policy + Terraform | Policy compliance report, failed pipeline example |
